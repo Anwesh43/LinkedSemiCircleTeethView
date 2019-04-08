@@ -195,4 +195,26 @@ class SemiCircleTeethView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : SemiCircleTeethView) {
+
+        private val animator : Animator = Animator(view)
+        private val sct : SemiCircleTeeth = SemiCircleTeeth(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            sct.draw(canvas, paint)
+            animator.animate {
+                sct.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            sct.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
