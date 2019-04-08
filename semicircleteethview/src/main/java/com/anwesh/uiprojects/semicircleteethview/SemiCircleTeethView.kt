@@ -19,7 +19,7 @@ val scGap : Float = 0.05f
 val scDiv : Double = 0.51
 val strokeFactor : Int = 90
 val sizeFactor : Float = 2.9f
-val rotDeg : Float = 90f
+val rotDeg : Float = 180f
 val foreColor : Int = Color.parseColor("#673AB7")
 val backColor : Int = Color.parseColor("#BDBDBD")
 
@@ -33,3 +33,32 @@ fun Float.mirrorValue(a : Int, b : Int) : Float {
 }
 fun Float.updateValue(dir : Float, a : Int, b : Int) : Float = mirrorValue(a, b) * dir * scGap
 
+fun Canvas.drawSCTNode(i : Int, scale : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    val gap : Float = h / (nodes + 1)
+    val size : Float = gap / sizeFactor
+    val sc1 : Float = scale.divideScale(0, 2)
+    val sc2 : Float = scale.divideScale(1, 2)
+    paint.color = foreColor
+    paint.strokeWidth = Math.min(w, h) / strokeFactor
+    paint.strokeCap = Paint.Cap.ROUND
+    paint.style = Paint.Style.STROKE 
+    val xGap : Float = (2 * size) / (squares + 1)
+    save()
+    translate(w / 2, gap * (i + 1))
+    for (j in 0..1) {
+        save()
+        rotate(rotDeg * j * sc2)
+        drawArc(RectF(-size, -size, size, size), 180f, 180f, false, paint)
+        for (k in 0..(squares - 1)) {
+            val hgap : Float = -xGap * sc1.divideScale(j, squares)
+            save()
+            translate(-size + xGap / 2 + xGap * j, 0f)
+            drawRect(RectF(0f, hgap, xGap, 0f), paint)
+            restore()
+        }
+        restore()
+    }
+    restore()
+}
