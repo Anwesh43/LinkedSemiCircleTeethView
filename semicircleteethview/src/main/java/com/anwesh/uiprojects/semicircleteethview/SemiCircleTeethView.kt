@@ -219,4 +219,13 @@ class SemiCircleTeethView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : SemiCircleTeethView {
+            val view : SemiCircleTeethView = SemiCircleTeethView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
