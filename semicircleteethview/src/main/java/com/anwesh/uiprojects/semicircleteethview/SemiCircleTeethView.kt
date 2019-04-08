@@ -43,7 +43,7 @@ fun Canvas.drawSCTNode(i : Int, scale : Float, paint : Paint) {
     paint.color = foreColor
     paint.strokeWidth = Math.min(w, h) / strokeFactor
     paint.strokeCap = Paint.Cap.ROUND
-    paint.style = Paint.Style.STROKE 
+    paint.style = Paint.Style.STROKE
     val xGap : Float = (2 * size) / (squares + 1)
     save()
     translate(w / 2, gap * (i + 1))
@@ -62,3 +62,21 @@ fun Canvas.drawSCTNode(i : Int, scale : Float, paint : Paint) {
     }
     restore()
 }
+
+class SemiCircleTeethView(ctx : Context) : View(ctx) {
+
+    private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    override fun onDraw(canvas : Canvas) {
+
+    }
+
+    override fun onTouchEvent(event : MotionEvent) : Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+
+            }
+        }
+        return true
+    }
+} 
